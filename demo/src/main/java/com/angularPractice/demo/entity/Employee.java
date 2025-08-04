@@ -13,9 +13,8 @@ import lombok.NoArgsConstructor;
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//1 2
     private int id;
-
     private String name;
     private String department;
     private double salary;

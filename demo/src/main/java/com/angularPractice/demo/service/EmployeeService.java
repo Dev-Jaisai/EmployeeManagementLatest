@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeService {
@@ -36,9 +37,39 @@ public class EmployeeService {
         return all;
     }
 
-    public Employee saveEmployee(Employee employee) {
-        return employeeRepo.save(employee);
+    public Employee saveEmployee(Employee employee) {//accepting employee object from controller
+        return employeeRepo.save(employee);//using save repo method it wiull returm entity
     }
+
+    public String deleteById(int id) {
+        //service
+
+        Optional<Employee> byId = employeeRepo.findById(id);
+
+        if (byId.isPresent()) {
+            employeeRepo.deleteById(id);
+            return "Deleted data By id " + id + " ";
+        } else {
+            return "return data not found";
+        }
+    }
+
+    public Employee updateEmployee(int id, Employee newData) {
+        Optional<Employee> byId = employeeRepo.findById(id);
+        if (byId.isPresent()) {//true
+            Employee existing = byId.get();
+            existing.setName(newData.getName());
+            existing.setSalary(newData.getSalary());
+            existing.setDepartment(newData.getDepartment());
+            return employeeRepo.save(existing);
+        } else {
+            throw new RuntimeException("Employee not found with id " + id);
+        }
+    }
+
+    //id data yrs else return id not found
+
+}
 /*
     public Page<Employee> findByPagination(int page, int size, String sortBy) {
 
@@ -58,4 +89,3 @@ public class EmployeeService {
         employeeRepo.deleteById(id);
         return "Employee deleted";
     }*/
-}

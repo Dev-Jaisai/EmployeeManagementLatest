@@ -28,9 +28,22 @@ public class EmployeeController {
 
     @PostMapping("/save")
     @CrossOrigin(origins = "*") // Allow Angular frontend access
-    public ResponseEntity<Employee> saveEmployee(@RequestBody Employee employee){
-       Employee employee1= employeeService.saveEmployee(employee);
-       return new ResponseEntity<>(employee1,HttpStatus.OK);
+    public ResponseEntity<Employee> saveEmployee(@RequestBody Employee employee) {
+        Employee employee1 = employeeService.saveEmployee(employee);
+        return new ResponseEntity<>(employee1, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteById(@PathVariable int id) {
+        String s = employeeService.deleteById(id);//stop
+        return ResponseEntity.ok(s);
+        //error hamndling exceptional 56
 
     }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Employee> updeteEmplyee(@PathVariable int id, @RequestBody Employee updatedData) {
+        Employee e = employeeService.updateEmployee(id, updatedData);//stop
+        return new ResponseEntity<>(e, HttpStatus.OK);
+    }
 }
+
