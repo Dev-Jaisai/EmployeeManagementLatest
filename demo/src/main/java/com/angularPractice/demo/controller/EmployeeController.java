@@ -22,6 +22,7 @@ public class EmployeeController {
     @GetMapping("/get")
     @CrossOrigin(origins = "*") // Allow Angular frontend access
     public ResponseEntity<List<Employee>> getEmployeeDat() {
+
         List<Employee> allemployeeData = employeeService.getAllemployeeData();
         return new ResponseEntity<>(allemployeeData, HttpStatus.OK);
     }
@@ -34,6 +35,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @CrossOrigin(origins = "*") // Allow Angular frontend access
     public ResponseEntity<String> deleteById(@PathVariable int id) {
         String s = employeeService.deleteById(id);//stop
         return ResponseEntity.ok(s);

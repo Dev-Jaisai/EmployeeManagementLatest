@@ -1,6 +1,8 @@
 package com.angularPractice.demo.service;
 
 import com.angularPractice.demo.entity.Employee;
+import com.angularPractice.demo.exceptions.DemoException;
+import com.angularPractice.demo.exceptions.EmployeeNotFoundException;
 import com.angularPractice.demo.repo.EmployeeRepo;
 
 import org.slf4j.Logger;
@@ -50,7 +52,7 @@ public class EmployeeService {
             employeeRepo.deleteById(id);
             return "Deleted data By id " + id + " ";
         } else {
-            return "return data not found";
+            throw new RuntimeException("Null poiner");
         }
     }
 
@@ -63,7 +65,7 @@ public class EmployeeService {
             existing.setDepartment(newData.getDepartment());
             return employeeRepo.save(existing);
         } else {
-            throw new RuntimeException("Employee not found with id " + id);
+            throw new EmployeeNotFoundException("Employee not found with id " + id);
         }
     }
 
